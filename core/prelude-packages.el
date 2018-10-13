@@ -37,11 +37,7 @@
 
 ;; accessing a package repo over https on Windows is a no go, so we
 ;; fallback to http there
-(if (eq system-type 'windows-nt)
-    (add-to-list 'package-archives
-                 '("melpa" . "http://melpa.org/packages/") t)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; load the pinned packages
 (let ((prelude-pinned-packages-file (expand-file-name "prelude-pinned-packages.el" prelude-dir)))
@@ -53,8 +49,7 @@
 (package-initialize)
 
 (defvar prelude-packages
-  '(ace-window
-    avy
+  '(avy
     anzu
     beacon
     browse-kill-ring
@@ -84,7 +79,6 @@
     undo-tree
     volatile-highlights
     which-key
-    zenburn-theme
     zop-to-char)
   "A list of packages to ensure are installed at launch.")
 
@@ -142,17 +136,10 @@ PACKAGE is installed only if not already present.  The file is opened in MODE."
   '(("\\.clj\\'" clojure-mode clojure-mode)
     ("\\.cmake\\'" cmake-mode cmake-mode)
     ("CMakeLists\\.txt\\'" cmake-mode cmake-mode)
-    ("\\.coffee\\'" coffee-mode coffee-mode)
     ("\\.css\\'" css-mode css-mode)
     ("\\.csv\\'" csv-mode csv-mode)
     ("Cask" cask-mode cask-mode)
-    ("\\.d\\'" d-mode d-mode)
-    ("\\.dart\\'" dart-mode dart-mode)
     ("\\.elm\\'" elm-mode elm-mode)
-    ("\\.ex\\'" elixir-mode elixir-mode)
-    ("\\.exs\\'" elixir-mode elixir-mode)
-    ("\\.elixir\\'" elixir-mode elixir-mode)
-    ("\\.erl\\'" erlang erlang-mode)
     ("\\.feature\\'" feature-mode feature-mode)
     ("\\.go\\'" go-mode go-mode)
     ("\\.graphql\\'" graphql-mode graphql-mode)

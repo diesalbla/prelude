@@ -41,7 +41,6 @@
     (define-key map (kbd "C-c g") 'prelude-google)
     (define-key map (kbd "C-c G") 'prelude-github)
     (define-key map (kbd "C-c y") 'prelude-youtube)
-    (define-key map (kbd "C-c U") 'prelude-duckduckgo)
     ;; mimic popular IDEs binding, note that it doesn't work in a terminal session
     (define-key map (kbd "C-a") 'crux-move-beginning-of-line)
     (define-key map [(shift return)] 'crux-smart-open-line)

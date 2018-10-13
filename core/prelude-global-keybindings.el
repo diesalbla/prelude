@@ -110,10 +110,6 @@
 (global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
 (global-set-key (kbd "s-.") 'avy-goto-word-or-subword-1)
 
-;; improved window navigation with ace-window
-(global-set-key (kbd "s-w") 'ace-window)
-(global-set-key [remap other-window] 'ace-window)
-
 (provide 'prelude-global-keybindings)
 
 ;;; prelude-global-keybindings.el ends here
