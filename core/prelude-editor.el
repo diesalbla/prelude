@@ -78,7 +78,6 @@
 (setq sp-base-key-bindings 'paredit)
 (setq sp-autoskip-closing-pair 'always)
 (setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
 
 (show-smartparens-global-mode +1)
 
@@ -141,10 +140,7 @@
 (windmove-default-keybindings)
 
 ;; automatically save buffers associated with files on buffer switch
-;; and on windows switch
 (require 'super-save)
-;; add integration with ace-window
-(add-to-list 'super-save-triggers 'ace-window)
 (super-save-mode +1)
 (diminish 'super-save-mode)
 
