@@ -39,9 +39,7 @@
 ;; You may delete these explanatory comments.
 ;(package-initialize)
 
-(defvar current-user
-  (getenv
-   (if (equal system-type 'windows-nt) "USERNAME" "USER")))
+(defvar current-user (getenv "USER") )
 
 (message "Prelude is powering up... Be patient, Master %s!" current-user)
 
@@ -115,13 +113,8 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 (require 'prelude-editor)
 (require 'prelude-global-keybindings)
 
-;; macOS specific settings
-(when (eq system-type 'darwin)
-  (require 'prelude-macos))
-
 ;; Linux specific settings
-(when (eq system-type 'gnu/linux)
-  (require 'prelude-linux))
+(require 'prelude-linux)
 
 (message "Loading Prelude's modules...")
 

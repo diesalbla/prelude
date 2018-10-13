@@ -1,7 +1,7 @@
 (set-face-attribute 'default nil
-                    :family "Inconsolata" :height 180 :weight 'normal)
+                    :family "Hack" :height 100 :weight 'normal)
 
-(load-theme 'abyss)
+(load-theme 'deeper-blue)
 
 
 (setq auto-fill-mode -1)

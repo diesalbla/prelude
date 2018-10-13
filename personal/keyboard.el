@@ -21,7 +21,7 @@
 (global-unset-key (kbd "<M-up>"))
 (global-unset-key (kbd "<M-down>"))
 
-;; Dead keys for accents in Spanish Keyboard.
+;; Dead keys for accents.
 (define-key key-translation-map [dead-grave] (lookup-key key-translation-map "\C-x8`"))
 (define-key key-translation-map [dead-acute] (lookup-key key-translation-map "\C-x8'"))
 (define-key key-translation-map [dead-circumflex] (lookup-key key-translation-map "\C-x8^"))
@@ -59,11 +59,48 @@
 (global-set-key (kbd "M-m M-s") 'magit-status)
 (global-set-key (kbd "M-m M-c") 'magit-checkout)
 
-(global-unset-key (kbd "<C-DEL>"))
-(global-set-key (kbd "<C-DEL>") 'backward-kill-word)
 ;; Use Ctrl-Tab and Ctrl-Shift-Tab to move back-and-forth
 (global-set-key (kbd "<C-tab>") 'next-buffer)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'previous-buffer)
 
+(global-unset-key (kbd "C-x o"))
+(global-set-key (kbd "C-x o") 'other-window)
 
-(global-unset-key "\M-s")
+
+
+(global-unset-key [C-backspace])
+(defun aborn/backward-kill-word ()
+  "Customize/Smart backward-kill-word."
+  (interactive)
+  (let* ((cp (point))
+         (backword)
+         (end)
+         (space-pos)
+         (backword-char (if (bobp)
+                            ""           ;; cursor in begin of buffer
+                          (buffer-substring cp (- cp 1)))))
+    (if (equal (length backword-char) (string-width backword-char))
+        (progn
+          (save-excursion
+            (setq backword (buffer-substring (point) (progn (forward-word -1) (point)))))
+          (setq ab/debug backword)
+          (save-excursion
+            (when (and backword          ;; when backword contains space
+                       (s-contains? " " backword))
+              (setq space-pos (ignore-errors (search-backward " ")))))
+          (save-excursion
+            (let* ((pos (ignore-errors (search-backward-regexp "\n")))
+                   (substr (when pos (buffer-substring pos cp))))
+              (when (or (and substr (s-blank? (s-trim substr)))
+                        (s-contains? "\n" backword))
+                (setq end pos))))
+          (if end
+              (kill-region cp end)
+            (if space-pos
+                (kill-region cp space-pos)
+              (backward-kill-word 1))))
+      (kill-region cp (- cp 1)))         ;; word is non-english word
+    ))
+
+(global-set-key  [C-backspace]
+            'aborn/backward-kill-word)
